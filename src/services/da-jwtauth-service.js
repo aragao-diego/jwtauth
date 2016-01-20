@@ -4,7 +4,7 @@
         .service('JwtService', JwtService );
 
     /* @ngInject */
-    function JwtService(){
+    function JwtService($localStorage){
         var service = this;
 
         service.authHeader = 'Authorization';

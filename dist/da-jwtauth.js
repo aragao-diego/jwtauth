@@ -6,7 +6,7 @@ var subModules = ['controllers', 'directives', 'services', 'views'];
 subModules.forEach(createSubModules);
 
 angular
-    .module(moduleName, [].concat(subModules) );
+    .module(moduleName, ['ngStorage'].concat(subModules) );
 
 function createSubModules(element, index, array){
     var subModuleName = moduleName+'.'+element;
