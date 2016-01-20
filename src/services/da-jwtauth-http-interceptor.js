@@ -4,7 +4,7 @@
         .factory('JwtHttpInterceptor', JwtHttpInterceptor);
 
     /*@ngInject*/
-    function JwtHttpInterceptor($q) {
+    function JwtHttpInterceptor($q, JwtService) {
         var interceptor = {
             // optional method
             'request': requestInterceptor,
