@@ -1,33 +1,31 @@
 (function(){
     angular
         .module('da-jwtauth.services')
-        .factory('daLoaderHttpInterceptor', LoaderHttpInterceptorFactory);
+        .factory('JwtHttpInterceptor', JwtHttpInterceptor);
 
     /*@ngInject*/
-    function LoaderHttpInterceptorFactory($q, LoaderService) {
+    function JwtHttpInterceptor($q) {
         var interceptor = {
             // optional method
             'request': requestInterceptor,
             'requestError': requestErrorInterceptor,
             'response': responseInterceptor,
-            'responseError': reponseErrorInterceptor,
-            'pendingRequests': 0,
-            'incrementRequest': incrementRequest,
-            'decrementRequest': decrementRequest,
-            'hasPendingRequests': hasPendingRequests
+            'responseError': reponseErrorInterceptor
         };
         return interceptor;
 
         ///////////////
         function requestInterceptor(config){
-            if(notUseLoader(config)){
+            if(notSendAuth(config)){
                 return config;
             }
 
-            if (interceptor.pendingRequests === 0) {
-                LoaderService.enable();
-            }
-            interceptor.incrementRequest();
+            var headerName = JwtService.authHeader;
+            var prefix = JwtService.authHeaderPrefix;
+            var sulfix = JwtService.authHeaderSulfix;
+            var token = JwtService.getToken();
+
+            config.headers[headerName] = prefix+token+sulfix;
 
             return config;
         }
@@ -37,49 +35,19 @@
         }
 
         function responseInterceptor(response){
-            if(notUseLoader(response.config)){
-                return response;
-            }
-
-            interceptor.decrementRequest();
-            if (!interceptor.hasPendingRequests()) {
-                LoaderService.disable();
-            }
-
             return response;
         }
 
         function reponseErrorInterceptor(rejection){
-            if(notUseLoader(rejection.config)){
-                return rejection;
-            }
-
-            interceptor.decrementRequest();
-            if (!interceptor.hasPendingRequests()) {
-                LoaderService.disable();
-            }
-
             return rejection;
         }
 
-        function notUseLoader(data){
-            if(data && data.hasOwnProperty('da-loader') && data['da-loader'] === false ){
+        function notSendAuth(data){
+            var skipProperty = JwtService.skipAuthorization;
+            if(data && data.hasOwnProperty(skipProperty) && data[skipProperty] === true ){
                 return true;
             }
-
             return false;
-        }
-
-        function incrementRequest(){
-            interceptor.pendingRequests++;
-        }
-
-        function decrementRequest(){
-            interceptor.pendingRequests--;
-        }
-
-        function hasPendingRequests(){
-            return interceptor.pendingRequests > 0;
         }
     }
 })();
