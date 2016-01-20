@@ -42,7 +42,10 @@
   "scripts": {
     "start": "grunt serve",
     "postinstall": "bower update",
-    "prestart": "npm update",
+    "prestart": "npm install",
     "test": "protractor ./e2e/protractor.conf.js"
+  },
+  "dependencies": {
+    "grunt": "^0.4.5"
   }
 }
