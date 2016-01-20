@@ -1,0 +1,6 @@
+/tmp
+/grunt-maven.json
+/npm-debug.log
+bower_components/
+node_modules/
+.project
