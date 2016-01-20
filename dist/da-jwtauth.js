@@ -33,13 +33,13 @@ function configJwtAuth($ocLazyLoadProvider){
 }
 
 (function(){
-    JwtHttpInterceptor.$inject = ["$q"];
+    JwtHttpInterceptor.$inject = ["$q", "JwtService"];
     angular
         .module('da-jwtauth.services')
         .factory('JwtHttpInterceptor', JwtHttpInterceptor);
 
     /*@ngInject*/
-    function JwtHttpInterceptor($q) {
+    function JwtHttpInterceptor($q, JwtService) {
         var interceptor = {
             // optional method
             'request': requestInterceptor,
