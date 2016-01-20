@@ -6,7 +6,7 @@ var subModules = ['controllers', 'directives', 'services', 'views'];
 subModules.forEach(createSubModules);
 
 angular
-    .module(moduleName, ['ngStorage'].concat(subModules) );
+    .module(moduleName, [].concat(subModules) );
 
 function createSubModules(element, index, array){
     var subModuleName = moduleName+'.'+element;
@@ -88,12 +88,13 @@ function configJwtAuth($ocLazyLoadProvider){
 })();
 
 (function(){
+    JwtService.$inject = ["$localStorage"];
     angular
         .module('da-jwtauth.services')
         .service('JwtService', JwtService );
 
     /* @ngInject */
-    function JwtService(){
+    function JwtService($localStorage){
         var service = this;
 
         service.authHeader = 'Authorization';
