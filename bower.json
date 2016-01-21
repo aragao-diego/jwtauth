@@ -1,7 +1,7 @@
 {
   "name": "da-jwtauth",
   "description": "Componente de autenticação via JWT para angular",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "homepage": "https://gitlab.apoio.fsw.ctis.com.br/dit-angular/da-loader",
   "license": "MIT",
   "private": true,

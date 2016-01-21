@@ -74,7 +74,7 @@ function configJwtAuth($ocLazyLoadProvider){
         }
 
         function reponseErrorInterceptor(rejection){
-            return rejection;
+            return $q.reject(rejection);
         }
 
         function notSendAuth(data){
