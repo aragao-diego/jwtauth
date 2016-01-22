@@ -12,13 +12,16 @@
         service.authHeaderSulfix = '';
         service.skipAuthorization = 'skipAuthorization';
         service.getSkipAuthorizationHeaderConfig = getSkipAuthorizationHeaderConfig;
-        service.encodePassword = encodePassword;
+        service.getTokenHeader = getTokenHeader;
         service.getToken = getToken;
         service.saveToken = saveToken;
         service.deleteToken = deleteToken;
+        service.encodePassword = encodePassword;
+        service.getTokenHeader = getTokenHeader;
 
         /////////
         function encodePassword(user, password){
+            return '';
         }
         function getToken(){
             return $localStorage.token;
@@ -33,6 +36,9 @@
             var property = {};
             property[service.skipAuthorization] = true;
             return property;
+        }
+        function getTokenHeader(){
+            return service.authHeaderPrefix+service.getToken()+service.authHeaderSulfix;
         }
     }
 })();

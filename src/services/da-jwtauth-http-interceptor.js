@@ -16,16 +16,10 @@
 
         ///////////////
         function requestInterceptor(config){
-            if(notSendAuth(config)){
+            if(notSendAuth(config) || notSendAuth(config.headers)){
                 return config;
             }
-
-            var headerName = JwtService.authHeader;
-            var prefix = JwtService.authHeaderPrefix;
-            var sulfix = JwtService.authHeaderSulfix;
-            var token = JwtService.getToken();
-
-            config.headers[headerName] = prefix+token+sulfix;
+            config.headers[JwtService.authHeader] = JwtService.getTokenHeader();
 
             return config;
         }

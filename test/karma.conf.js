@@ -5,6 +5,7 @@ module.exports = function(config){
 
     files : [
         "bower_components/angular/angular.js",
+        "bower_components/ngstorage/ngStorage.js",
         "bower_components/angular-ui-router/release/angular-ui-router.min.js",
         "bower_components/oclazyload/dist/ocLazyLoad.min.js",
 
@@ -12,9 +13,9 @@ module.exports = function(config){
 
         { pattern: 'src/*.*js', watched: true, included: true, served: true},
         { pattern: 'src/**/*.js', watched: true, included: true, served: true},
-        
+
         { pattern: 'test/spec/**/*.js', watched: true, included: true, served: true},
-        
+
     ],
 
     autoWatch : true,
@@ -26,7 +27,7 @@ module.exports = function(config){
 
     //browsers : ['Chrome', 'PhantomJS'],
     browsers : ['PhantomJS'],
-    
+
     singleRun: true,
 
     plugins : [
