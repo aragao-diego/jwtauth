@@ -51,16 +51,10 @@ function configJwtAuth($ocLazyLoadProvider){
 
         ///////////////
         function requestInterceptor(config){
-            if(notSendAuth(config)){
+            if(notSendAuth(config) || notSendAuth(config.headers)){
                 return config;
             }
-
-            var headerName = JwtService.authHeader;
-            var prefix = JwtService.authHeaderPrefix;
-            var sulfix = JwtService.authHeaderSulfix;
-            var token = JwtService.getToken();
-
-            config.headers[headerName] = prefix+token+sulfix;
+            config.headers[JwtService.authHeader] = JwtService.getTokenHeader();
 
             return config;
         }
@@ -102,13 +96,16 @@ function configJwtAuth($ocLazyLoadProvider){
         service.authHeaderSulfix = '';
         service.skipAuthorization = 'skipAuthorization';
         service.getSkipAuthorizationHeaderConfig = getSkipAuthorizationHeaderConfig;
-        service.encodePassword = encodePassword;
+        service.getTokenHeader = getTokenHeader;
         service.getToken = getToken;
         service.saveToken = saveToken;
         service.deleteToken = deleteToken;
+        service.encodePassword = encodePassword;
+        service.getTokenHeader = getTokenHeader;
 
         /////////
         function encodePassword(user, password){
+            return '';
         }
         function getToken(){
             return $localStorage.token;
@@ -123,6 +120,9 @@ function configJwtAuth($ocLazyLoadProvider){
             var property = {};
             property[service.skipAuthorization] = true;
             return property;
+        }
+        function getTokenHeader(){
+            return service.authHeaderPrefix+service.getToken()+service.authHeaderSulfix;
         }
     }
 })();
