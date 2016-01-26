@@ -51,7 +51,7 @@ function configJwtAuth($ocLazyLoadProvider){
 
         ///////////////
         function requestInterceptor(config){
-            if(notSendAuth(config) || notSendAuth(config.headers)){
+            if((notSendAuth(config) || notSendAuth(config.headers)) && JwtService.isValidToken()){
                 return config;
             }
             config.headers[JwtService.authHeader] = JwtService.getTokenHeader();
@@ -102,6 +102,7 @@ function configJwtAuth($ocLazyLoadProvider){
         service.deleteToken = deleteToken;
         service.encodePassword = encodePassword;
         service.getTokenHeader = getTokenHeader;
+        service.isValidToken = isValidToken;
 
         /////////
         function encodePassword(user, password){
@@ -123,6 +124,9 @@ function configJwtAuth($ocLazyLoadProvider){
         }
         function getTokenHeader(){
             return service.authHeaderPrefix+service.getToken()+service.authHeaderSulfix;
+        }
+        function isValidToken(){
+            return $localStorage.token !== '';
         }
     }
 })();
