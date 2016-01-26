@@ -16,7 +16,7 @@
 
         ///////////////
         function requestInterceptor(config){
-            if(notSendAuth(config) || notSendAuth(config.headers)){
+            if((notSendAuth(config) || notSendAuth(config.headers)) && JwtService.isValidToken()){
                 return config;
             }
             config.headers[JwtService.authHeader] = JwtService.getTokenHeader();

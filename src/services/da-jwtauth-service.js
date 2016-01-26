@@ -18,6 +18,7 @@
         service.deleteToken = deleteToken;
         service.encodePassword = encodePassword;
         service.getTokenHeader = getTokenHeader;
+        service.isValidToken = isValidToken;
 
         /////////
         function encodePassword(user, password){
@@ -39,6 +40,9 @@
         }
         function getTokenHeader(){
             return service.authHeaderPrefix+service.getToken()+service.authHeaderSulfix;
+        }
+        function isValidToken(){
+            return $localStorage.token !== '';
         }
     }
 })();
