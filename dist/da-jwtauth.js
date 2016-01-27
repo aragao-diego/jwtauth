@@ -51,7 +51,7 @@ function configJwtAuth($ocLazyLoadProvider){
 
         ///////////////
         function requestInterceptor(config){
-            if((notSendAuth(config) || notSendAuth(config.headers)) && JwtService.isValidToken()){
+            if((notSendAuth(config) || notSendAuth(config.headers)) || !JwtService.isValidToken()){
                 return config;
             }
             config.headers[JwtService.authHeader] = JwtService.getTokenHeader();
