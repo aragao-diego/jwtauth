@@ -4,13 +4,15 @@
         .service('JwtService', JwtService );
 
     /* @ngInject */
-    function JwtService($localStorage){
+    function JwtService($localStorage, $sessionStorage){
         var service = this;
 
         service.authHeader = 'Authorization';
         service.authHeaderPrefix = 'Token ';
         service.authHeaderSulfix = '';
         service.skipAuthorization = 'skipAuthorization';
+        service.storage = $localStorage;
+
         service.getSkipAuthorizationHeaderConfig = getSkipAuthorizationHeaderConfig;
         service.getTokenHeader = getTokenHeader;
         service.getToken = getToken;
@@ -19,19 +21,20 @@
         service.encodePassword = encodePassword;
         service.getTokenHeader = getTokenHeader;
         service.isValidToken = isValidToken;
+        service.setStorage = setStorage;
 
         /////////
         function encodePassword(user, password){
             return '';
         }
         function getToken(){
-            return $localStorage.token;
+            return service.storage.token;
         }
         function saveToken(token){
-            $localStorage.token = token;
+            service.storage.token = token;
         }
         function deleteToken(){
-            $localStorage.token = '';
+            service.storage.token = '';
         }
         function getSkipAuthorizationHeaderConfig(){
             var property = {};
@@ -42,7 +45,10 @@
             return service.authHeaderPrefix+service.getToken()+service.authHeaderSulfix;
         }
         function isValidToken(){
-            return $localStorage.token !== '';
+            return service.storage.token !== '';
+        }
+        function setStorage($storage){
+            service.storage = $storage;
         }
     }
 })();
