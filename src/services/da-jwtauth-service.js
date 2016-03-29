@@ -45,7 +45,7 @@
             return service.authHeaderPrefix+service.getToken()+service.authHeaderSulfix;
         }
         function isValidToken(){
-            return service.storage.token !== '';
+            return service.storage && service.storage.token && service.storage.token !== '';
         }
         function setStorage($storage){
             service.storage = $storage;
