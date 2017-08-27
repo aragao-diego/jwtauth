@@ -14,24 +14,6 @@ function createSubModules(element, index, array){
     array[index] = subModuleName;
 }
 
-
-configJwtAuth.$inject = ["$ocLazyLoadProvider"];angular
-    .module('da-jwtauth')
-    .config(configJwtAuth);
-
-/* @ngInject */
-function configJwtAuth($ocLazyLoadProvider){
-    $ocLazyLoadProvider.config({
-        modules: [{
-            name: 'da-jwtauth',
-            serie: true,
-            files: [
-
-            ]
-        }]
-    });
-}
-
 (function(){
     JwtHttpInterceptor.$inject = ["$q", "JwtService"];
     angular

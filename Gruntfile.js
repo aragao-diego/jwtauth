@@ -234,7 +234,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build',[
-    'test',
+    // 'test',
     'copy:dist',
     'copy:statics',
     'ngAnnotate:dist',
